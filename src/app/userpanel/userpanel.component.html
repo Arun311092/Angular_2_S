@@ -1,0 +1,96 @@
+<div class="jumbotron" align="center" style="overflow: auto">
+
+<div id="theList">
+
+    <div style="overflow:auto">
+    <h3>Student list</h3> 
+    </div>
+
+    <div class="list-group">
+      <div *ngFor="let item of students;let i = index;" class="list-group-item row">
+        <div class="col-4" style="float:left">
+          <input type="text"
+                 [(ngModel)]="students[i].name"
+                 class="form-control"
+                 required
+                 pattern="^[a-zA-Z]+$"
+                 #name="ngModel"
+                 [ngClass]="{ 'is-invalid': name.touched && name.invalid }">
+        </div>
+        <div class="col-4" style="float:left">
+          <input type="number"
+                 [(ngModel)]="students[i].marks"
+                 class="form-control"
+                 required
+                 pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$"
+                 #marks="ngModel"
+                 [ngClass]="{ 'is-invalid': marks.touched && marks.invalid }">
+        </div>
+        <div class="col-4" style="float:left">
+          <input type="button"
+                 value="Update"
+                 class="btn btn-success btn-sm"
+                 [disabled]="name.invalid || marks.invalid"
+                 (click)="updateStudent(name, marks, item.id)">
+          &nbsp;
+          <input type="button"
+                 value="Delete"
+                 class="btn btn-danger btn-sm"
+                 (click)="deleteStudent(item.id)">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<br>
+
+<div id="theForm">
+  <h3>Enter new Student details</h3>
+  <form #f="ngForm" name="theForm" (submit)="addStudent(f)">
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text"
+            class="form-control"
+            name="name"
+            [(ngModel)]="student.name"
+            #studentName="ngModel"
+            required
+            pattern="^[a-zA-Z]+$">
+      <span class="help-block danger" *ngIf="studentName.errors?.required && studentName.touched">
+        The student name is required
+      </span>
+      <span class="help-block danger" *ngIf="studentName.errors?.pattern && studentName.touched">
+        The student name can only contain the letters a-z or A-Z
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Marks</label>
+      <input type="number"
+            class="form-control"
+            name="marks"
+            required
+            pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$"
+            [(ngModel)]="student.marks"
+            #studentMarks="ngModel">
+      <span class="help-block danger" *ngIf="studentMarks.errors?.required && studentMarks.touched">
+        This is required
+      </span>
+    </div>
+
+    <button
+        class="btn btn-primary btn-sm"
+        [disabled]="f.invalid">Add</button>
+  </form>
+</div>
+
+<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+<div *ngIf="success" class="alert alert-success">{{success}}</div> <br>
+
+<a routerLink="/toppers">See toppers</a>
+<br>
+<a routerLink="/">Log out</a> <br>
+
+
+</div>

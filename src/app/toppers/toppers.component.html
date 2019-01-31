@@ -1,0 +1,37 @@
+<!-- <input [(ngModel)]="s.name" placeholder="name"> -->
+
+<table align="center">
+    <tr> <td> <label>Enter the number of top students you wish to see </label> </td>
+      <td> <input type="number" #top > </td> </tr>
+    <tr> <td colspan="2" align="center" ><button (click)="onClick(top.value)">Show</button> </td> </tr>
+</table>
+  
+<div align="center" class="list-group" style="background:rgba(255, 255, 255, 0.575)">
+    <div *ngFor="let item of a;let i = index;" class="list-group-item row">
+      <div class="col-4">
+        <input type="text"
+           [(ngModel)]="a[i].name"
+           class="form-control"
+           required
+           readonly
+           pattern="^[a-zA-Z]+$"
+           #name="ngModel"
+           [ngClass]="{ 'is-invalid': name.touched && name.invalid }"> 
+        </div>
+  <div class="col-4">
+    <input type="number"
+           [(ngModel)]="a[i].marks"
+           class="form-control"
+           required
+           readonly
+           #marks="ngModel"
+           [ngClass]="{ 'is-invalid': marks.touched && marks.invalid }">
+  </div>
+</div>
+</div>
+
+<br>
+
+<div align="center">
+<a routerLink="/">Log out</a> <br>
+</div>
